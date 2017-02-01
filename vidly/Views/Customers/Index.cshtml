@@ -27,6 +27,7 @@ else
             <tr>
                 <th>Customer</th>
                 <th>Discount Rate</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -47,37 +48,43 @@ else
 @section scripts
 {
     <script>
-        $(document).ready(function () {
+      
 
-            $("#customers .js-delete").on("click", function () {
-                var button = $(this);
+            $(document).ready(function () {
+           
+                $("#customers").DataTable();
+           
+           
 
-                bootbox.confirm("Are you Sure you want to delete this customer?",function(result){
+                $("#customers").on("click", ".js-delete", function () {
+                    var button = $(this);
 
-                    if(result){
-                        $.ajax({
+                    bootbox.confirm("Are you Sure you want to delete this customer?",function(result){
 
-                            url: "/api/customers/" + button.attr("data-customer-id"),
-                            method: "DELETE",
-                            success: function () {
-                                button.parents("tr").remove();
+                        if(result){
+                            $.ajax({
+
+                                url: "/api/customers/" + button.attr("data-customer-id"),
+                                method: "DELETE",
+                                success: function () {
+                                    button.parents("tr").remove();
 
                           
 
-                            }
+                                }
                         
 
 
-                        });
+                            });
 
-                    }
+                        }
+                    });
+                
+                
                 });
-                
-                
+
+
             });
-
-
-        });
                
 
     </script>
